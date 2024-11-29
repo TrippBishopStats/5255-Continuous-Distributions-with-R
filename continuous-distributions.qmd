@@ -15,7 +15,7 @@ rm(list = ls())
 theme_set(theme_minimal())
 ```
 
-## Problem 6.27
+# Problem 6.27
 Sketch the graphs of the beta densities having  
 a) $\alpha=2$, $\beta=2$
 b) $\alpha=1/2$, $\beta=1$
@@ -45,5 +45,73 @@ tibble(X,Y.a,Y.b,Y.c,Y.d) |>
       y = "Density"
     )
 ```
+# Problem 6.52
+In a certain city, the daily consumption of electric power in millions of 
+kilowatt-hours can be treated as a random variable having a gamma distribution
+with $\alpha=3$ and $\beta=2$. If the power plant of this city has a daily 
+capacity of 12 million kilowatt-hours, what is the probability that this power
+supply will be inadequate on any given day?
+
+What is the probability that $X > 12 MWh/day$ given $X\sim \Gamma(3,2)$?
+
+```{r problem 6.52}
+(prob <- pgamma(12, shape=3, scale=2, lower.tail = FALSE))
+```
+The probability that power demand exceeds the power plant's capacity on any 
+given day is $p=`r round(prob, 4)`$.
+
+# Problem 6.54
+The amount of time that a watch will run without having to be reset is a random
+variable having an exponential distribution with $\theta=120$ days. Find the 
+probabilities that such a watch will  
+a) have to be reset in less than 24 days.
+
+```{r problem 6.54a}
+(prob <- pexp(24, rate = 1/120))
+```
+The probability that the watch will have to be reset in less than 24 days is
+$p=`r round(prob,4)`$.
+
+b) not have to be reset in at least 180 days.
+
+```{r problem 6.54b}
+(prob <- pexp(180, rate = 1/120, lower.tail = FALSE))
+```
+The probability that the watch will not have to be reset in at least 180 days is
+$p=`r round(prob,4)`$.
+
+# Problem 6.56
+The number of bad cheques that a bank receives during a 5-hour business day is a
+Poisson random variable with $\lambda=2$. What is the probability that it will 
+not receive a bad cheque on any one day during the first two hours of business?
+
+We need to scale our rate, because $\lambda$ is describing the rate of bad
+cheques received over a 5 hour period, but we are dealing with only the first 2
+hours of the business day.
+
+```{r problem 6.56}
+(prob <- ppois(0, 4/5))
+```
+The probability that the bank will not receive any bad cheques in the first two
+hours of business on any given day is $p=`r round(prob, 4)`$.
+
+# Problem 6.58
+If the annual proportion of erroneous income tax returns filed with the IRS can
+be looked upon as a random variable having a beta distribution with $\alpha=2$
+and $\beta=9$, what is the probability that in any given year there will be 
+fewer than 10% erroneous returns?
+
+```{r problem 6.58}
+(prob <- pbeta(0.1, shape1=2, shape2=9))
+```
+The probability that the IRS will receive fewer than 10% erroneous returns is
+$p=`r round(prob,4)`$.
+
+The annual expected proportion of erroneous income tax returns is given by
+$$
+E[X] = \frac{\alpha}{\alpha+\beta} = \frac{2}{2+9} = \frac{2}{11} \approx0.22.
+$$
+
+# Problem 6.59
 
 
