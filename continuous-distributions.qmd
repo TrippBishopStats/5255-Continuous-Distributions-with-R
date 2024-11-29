@@ -113,5 +113,68 @@ E[X] = \frac{\alpha}{\alpha+\beta} = \frac{2}{2+9} = \frac{2}{11} \approx0.22.
 $$
 
 # Problem 6.59
+A certain kind of appliance requires repairs on the average once every 2 years.
+Assuming that the times between repairs are exponentially distributed, what is 
+the probability that such an appliance will work at least 3 years without
+requiring repairs?
 
+```{r problem 6.59}
+(prob <- pexp(3, rate = 1/2, lower.tail = FALSE))
+```
+The probability that an appliance of this kind going at least 3 years without
+requiring repairs is $p=`r round(prob, 4)`$.
+
+# Problem 6.61
+Suppose that the service life in hours of a semiconductor is a random variable 
+having a Weibull distribution with $\alpha=0.025$ and $\beta=0.500$.  
+a) How long can such a semiconductor be expected to last?
+
+```{r problem 6.61a}
+qweibull(0.5, shape = 0.5, scale = 1/(0.025)^2)
+```
+A semiconductor can be expected to last about 768.7 hours using these 
+distribution parameters.
+
+b) What is the probability that such a semiconductor will still be in operating
+condition after 4000 hours?
+
+```{r problem 6.61b}
+(prob <- pweibull(4000, shape = 0.5, scale = 1/(0.025)^2, lower.tail = FALSE))
+```
+The probability that one of these semiconductors continuing to operate beyond
+4000 hours is $p=`r round(prob, 4)`$.
+
+# Problem 6.70
+Suppose that during periods of meditation the reduction of a person's oxygen
+consumption is a random variable having a normal distribution with $\mu=37.6$ cc
+per minute and $\sigma=4.6$ cc per minute. Find the probabilities that during a
+period of meditation a person's oxygen consumption will be reduced by  
+a) at least 44.5 cc per minute
+
+```{r problem 6.70a}
+mu <- 37.6
+sigma <- 4.6
+
+(prob <- pnorm(44.5, mean=mu, sd=sigma, lower.tail = FALSE))
+```
+The probability that during a period of meditation a person's oxygen consumption
+will be reduced by at least 44.5 cc per minute is $p=`r round(prob, 4)`$.
+
+b) at most 35.0 cc per minute
+
+```{r problem 6.70b}
+(prob <- pnorm(35.0, mean=mu, sd=sigma))
+```
+The probability that during a period of meditation a person's oxygen consumption
+will be reduced by at most 35.0 cc per minute is $p=`r round(prob, 4)`$.
+
+c) anywhere from 30.0 to 40.0 cc per minute
+
+```{r problem 6.70c}
+probs <- pnorm(c(30.0,40.0), mean=mu, sd=sigma)
+(diff_prob <- probs[2] - probs[1])
+```
+
+The probability that during a period of meditation a person's oxygen consumption
+will be reduced by between 30.0 and 40.0 cc per minute is $p=`r round(diff_prob, 4)`$.
 
