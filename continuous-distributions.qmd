@@ -1,0 +1,49 @@
+---
+title: "Continuous Distributions with R"
+author: "Tripp Bishop/STAT 5255"
+fig-align: center
+format: pdf
+execute: 
+  warning: false
+  message: false
+---
+
+```{r initial setup}
+library(tidyverse)
+library(latex2exp)
+rm(list = ls())
+theme_set(theme_minimal())
+```
+
+## Problem 6.27
+Sketch the graphs of the beta densities having  
+a) $\alpha=2$, $\beta=2$
+b) $\alpha=1/2$, $\beta=1$
+c) $\alpha=2$, $\beta=1/2$
+d) $\alpha=2$, $\beta=5$
+
+```{r problem 6.27}
+X <- seq(from=0,to=1,by=0.01)
+
+Y.a <- dbeta(X, 2, 2)
+Y.b <- dbeta(X, 1/2, 1)
+Y.c <- dbeta(X, 2, 1/2)
+Y.d <- dbeta(X, 2, 5)
+
+tibble(X,Y.a,Y.b,Y.c,Y.d) |> 
+  ggplot(aes(x=X)) +
+    geom_line(aes(y=Y.a), colour="magenta", linewidth=1) + 
+    geom_line(aes(y=Y.b), colour="steelblue", linewidth=1) + 
+    geom_line(aes(y=Y.c), colour="orange", linewidth=1) + 
+    geom_line(aes(y=Y.d), colour="seagreen", linewidth=1) +
+    annotate(geom="text", label=TeX("$\\alpha=1/2, \\beta=1$"), x=0.09, y=6, colour="steelblue") +
+    annotate(geom="text", label=TeX("$\\alpha=2, \\beta=1/2$"), x=0.885, y=5, colour="orange") +
+    annotate(geom="text", label=TeX("$\\alpha=2, \\beta=5$"), x=0.19, y=2.75, colour="seagreen") +
+    annotate(geom="text", label=TeX("$\\alpha=2, \\beta=2$"), x=0.565, y=1.79, colour="magenta") +
+    labs(
+      title = TeX("$\\beta$ densities"),
+      y = "Density"
+    )
+```
+
+
